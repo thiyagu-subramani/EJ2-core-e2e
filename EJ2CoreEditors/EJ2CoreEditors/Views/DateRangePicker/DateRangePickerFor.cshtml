@@ -1,0 +1,48 @@
+@model EJ2CoreEditors.Controllers.DateRangePicker.DateRangeValue
+<h3> DateRangePickerFor Sample: </h3>
+<h5>This sample demonstrates the strongly typed extension support in daterangepicker and date format has been set to the component by using format property. Date time value is set to daterangepicker from code behind and its set to daterangepicker in view page by invoking the strongly typed daterangepickerFor helper with the lambda expression.</h5>
+<br />
+<div class=" control-section">
+    <div id="wrapper" class="datepicker-section">
+        <div id="daterangepicker-control">
+            <form method="post">
+                <ejs-daterangepicker id="daterangepickerFor" name="value" ejs-for="@Model.value" placeholder="Choose a Date Range" width="300px"></ejs-daterangepicker>
+                <div id="errorMessage">
+                    <span asp-validation-for="value"></span>
+                </div>
+                <div id="submitbutton">
+                    <ejs-button id="submitButton" content="Submit"></ejs-button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    #date_label {
+        display: block;
+        width: 248px;
+        color: rgba(0, 0, 0, 0.58);
+        margin-left: 5px;
+    }
+
+    #daterangepicker-control {
+        max-width: 300px;
+        margin: 0 auto;
+    }
+
+    #wrapper {
+        max-width: 246px;
+        margin: 0px auto;
+    }
+
+    #submitbutton {
+        margin: 10px auto;
+        text-align: center;
+    }
+
+    #errorMessage {
+        color: red;
+        text-align: center
+    }
+</style>

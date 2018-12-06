@@ -1,0 +1,33 @@
+﻿@model EJ2CoreEditors.Controllers.DateRangePicker.DateRangePostBack
+@{
+    ViewData["Title"] = "Form postback Sample";
+}
+@using (Html.BeginForm())
+{
+    <div id="form-section">
+    <div id="date">
+        <ejs-daterangepicker id="daterangepicker" width="250px" placeholder="Choose a date range" name="value" value="@Model.value"></ejs-daterangepicker>
+    </div>
+    <div id="submitbutton">
+        <ejs-button id="submitButton" content="Submit" type="submit"></ejs-button>
+    </div>
+    </div>
+}
+<style>
+   #submitbutton {
+        margin-top: 20px;
+        margin-left: 172px;
+    }
+
+    #date {
+        margin-left: 100px;
+        margin-top: 50px;
+    }
+    #errorMessage {
+        color: red;
+        padding: 0px 100px;
+    }
+    #form-section {
+        max-width: 362px;
+    }
+</style>

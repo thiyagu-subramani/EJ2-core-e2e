@@ -1,0 +1,191 @@
+﻿ <div class=" col-lg-8 control-section">
+        <div id="wrapper" class="datepicker-section">
+            <div id="datepicker-control">
+               <div class="center-align">
+                    <div class="align">
+                        <ejs-calendar id="calendar" value="ViewBag.value"></ejs-calendar>
+                    </div>
+                    <div class="align1">
+                        <ejs-datepicker id="datepicker" value="ViewBag.value"></ejs-datepicker>
+                    </div>
+                    <div class="align1">
+                        <ejs-daterangepicker id="daterangepicker" startDate="ViewBag.startDate" endDate="ViewBag.endDate"></ejs-daterangepicker>
+                    </div>
+                    <div class="align1">
+                        <ejs-datetimepicker id="datetimepicker" value="ViewBag.value"></ejs-datetimepicker>
+                    </div>
+                    <div class="align1">
+                        <ejs-timepicker id="timepicker" value="ViewBag.value"></ejs-timepicker>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 property-section">
+    <div class="radio-control" id="property" title="Select a Locale">
+        <div class="row">
+            <ejs-radiobutton id="en" name="locale" label="English" value="en" change="onchange"></ejs-radiobutton>
+        </div>
+        <div class="row">
+            <ejs-radiobutton id="de" name="locale" label="German" value="de" change="onchange" checked="true" ></ejs-radiobutton>
+        </div>
+        <div class="row">
+            <ejs-radiobutton id="ar" name="locale" label="Arabic" value="ar" change="onchange"></ejs-radiobutton>
+        </div>
+    </div>
+</div>
+</div>
+<script>
+    function onchange(args) {
+        /*Apply selected format to the component*/
+        var culture = args.value;
+        if (culture !== 'en') {
+            loadCultureFiles(culture);
+        }
+        ej.base.setCulture(culture);
+    }
+    document.addEventListener('DOMContentLoaded', function () {
+        var L10n = ej.base.L10n;
+        L10n.load({
+            "de": {
+                'calendar': {
+                    today: 'heute'
+                },
+                'datepicker': {
+                    placeholder: 'Wählen Sie ein Datum',
+                    today: 'heute'
+                },
+                'daterangepicker': {
+                    placeholder: 'Wählen Sie einen Bereich aus',
+                    startLabel: 'Wählen Sie Startdatum',
+                    endLabel: 'Wählen Sie Enddatum',
+                    applyText: 'Sich bewerben',
+                    cancelText: 'Stornieren',
+                    selectedDays: 'Ausgewählte Tage',
+                    days: 'Tage',
+                    customRange: 'benutzerdefinierten Bereich'
+                },
+                'datetimepicker': {
+                    placeholder: 'Wählen Sie ein Datum und eine Uhrzeit aus',
+                    today: 'heute'
+                },
+                'timepicker':
+                    {
+                        placeholder: 'Wählen Sie Zeit'
+                    }
+            },
+
+            "en": {
+                'calendar': {
+                    today: 'today'
+                },
+                'datepicker': {
+                    placeholder: 'Choose a date',
+                    today: 'Today'
+                },
+                'daterangepicker': {
+                    placeholder: 'Select a range ',
+                    startLabel: 'Start Date',
+                    endLabel: 'End Date',
+                    applyText: 'Apply',
+                    cancelText: 'Cancel',
+                    selectedDays: 'Selected Days',
+                    days: 'Days',
+                    customRange: 'Custom Range'
+                },
+                 'datetimepicker': {
+                    placeholder: 'Choose a datetime',
+                    today: 'Today'
+                },
+                'timepicker': {
+                    placeholder: 'Choose a time',
+                }
+
+            },
+            "ar": {
+                'calendar': {
+                    today: 'اليوم'
+                },
+                'datepicker': {
+                    placeholder: 'اختر تاريخا',
+                    today: 'اليوم'
+                },
+               'daterangepicker': {
+                    placeholder: 'حدد نطاقا',
+                    startLabel: 'تاريخ البدء',
+                    endLabel: 'تاريخ الانتهاء',
+                    applyText: 'تطبيق',
+                    cancelText: 'إلغاء',
+                    selectedDays: 'الأيام المحددة',
+                    days: 'أيام',
+                    customRange: 'نطاق مخصص'
+                },
+                'datetimepicker': {
+                    placeholder: 'تشوس داتيتيم',
+                    today: 'اليوم'
+                },
+                 'timepicker': { placeholder: 'حدد الوقت' }
+            }
+        });
+        loadCultureFiles('de');
+        ej.base.setCulture('de');
+    });
+
+    function loadCultureFiles(name) {
+  var files = ['ca-gregorian.json', 'numbers.json', 'timeZoneNames.json'];
+        if (name === 'ar') {
+            files.push('numberingSystems.json');
+        }
+        var loader = ej.base.loadCldr;
+        var loadCulture = function (prop) {
+            var val, ajax;
+            if (name === 'ar' && prop === files.length - 1) {
+                ajax = new ej.base.Ajax(location.origin + location.pathname + '/../../scripts/cldr-data/supplemental/' + files[prop], 'GET', false);
+            } else {
+                ajax = new ej.base.Ajax(location.origin + location.pathname + '/../../scripts/cldr-data/main/' + name + '/' + files[prop], 'GET', false);
+            }
+            ajax.onSuccess = function (value) {
+                val = value;
+            };
+            ajax.send();
+            loader(JSON.parse(val));
+        };
+        for (var prop = 0; prop < files.length; prop++) {
+            loadCulture(prop);
+        }
+    }
+
+</script>
+
+<style>
+    .align {
+        margin: 0 auto;
+        width: 300px;
+    }
+   .center-align {
+        margin: 0 auto;
+        width: 300px;
+    }
+    .align1 {
+        margin: 0 auto;
+        width: 250px;
+        padding-top: 15px;
+    }
+     .property-section {
+        width: 200px;
+        padding-top: 30px;
+    }
+
+    #wrapper {
+        max-width: 280px;
+        margin: 30px auto;
+    }
+
+    .e-calendar.e-rtl {
+        max-width: 332px;
+    }
+
+    .e-bigger .e-calendar.e-rtl {
+        max-width: 332px;
+    }
+</style>
